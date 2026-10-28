@@ -2,13 +2,12 @@ package com.example.cropfly.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val PrimaryGreen = Color(0xFF1B4D3E)
-val SecondaryGreen = Color(0xFF2E6F54)
-val BackgroundLight = Color(0xFFF4F6F4)
-val SurfaceLight = Color(0xFFFFFFFF)
-val ErrorRed = Color(0xFFD32F2F)
-
-val PrimaryGreenDark = Color(0xFF2E6F54)
-val SecondaryGreenDark = Color(0xFF4A8E72)
-val BackgroundDark = Color(0xFF121815)
-val SurfaceDark = Color(0xFF1A2420)
+val DarkGreen = Color(0xFF163C26)
+val PrimaryGreen = Color(0xFF1E5132)
+val AccentGreen = Color(0xFF8BC34A)
+val LightGreenContainer = Color(0xFFE2F0D9)
+val BackgroundLight = Color(0xFFF2F4EE)
+val CardBackground = Color(0xFFFFFFFF)
+val TextDark = Color(0xFF1A1A1A)
+val TextMuted = Color(0xFF666666)
+val ErrorRed = Color(0xFFC62828)
