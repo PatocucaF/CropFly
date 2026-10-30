@@ -63,10 +63,7 @@ import com.example.cropfly.viewmodel.AuthViewModel
 import com.example.cropfly.viewmodel.EstadoSesion
 import com.example.cropfly.viewmodel.ModoAuth
 
-/**
- * Pantalla de ingreso y de registro (son dos pestañas de la misma tarjeta).
- * No tiene reglas propias: muestra lo que le entrega el [AuthViewModel] y le avisa lo que hace el usuario.
- */
+
 @Composable
 fun AuthScreen(
     viewModel: AuthViewModel,

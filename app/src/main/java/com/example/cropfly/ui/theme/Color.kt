@@ -2,7 +2,6 @@ package com.example.cropfly.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Paleta tomada de los mockups de AgroEnlace
 val DarkGreen = Color(0xFF123A24)
 val PrimaryGreen = Color(0xFF1E5B39)
 val AccentGreen = Color(0xFF8BC34A)
