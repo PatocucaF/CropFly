@@ -1,4 +1,4 @@
-# AgroEnlace (CropFly)
+# CropFly
 
 MVP móvil Android que vincula **productores agrícolas** con **prestadores de servicios** (fumigación y siembra con dron, robots terrestres, monitoreo NDVI).
 Proyecto de la asignatura **DSY1105 – Desarrollo de Aplicaciones Móviles** (Duoc UC), basado en el caso **TECMUNDO**.

@@ -37,10 +37,6 @@ import kotlinx.coroutines.delay
 
 private const val DURACION_SPLASH_MS = 1_800L
 
-/**
- * Pantalla de bienvenida. Mientras se muestra, la app revisa en Room si quedó una sesión guardada:
- * con sesión entra directo al inicio del perfil, sin sesión va al login.
- */
 @Composable
 fun SplashScreen(
     estadoSesion: EstadoSesion,
@@ -92,8 +88,8 @@ fun SplashScreen(
             LogoDron(tamano = 120.dp, colorCuerpo = Color.White.copy(alpha = 0.9f))
             Spacer(Modifier.height(24.dp))
             Row {
-                Text("AGRO", color = Color.White, fontSize = 40.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 4.sp)
-                Text("ENLACE", color = AccentGreen, fontSize = 40.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 4.sp)
+                Text("Crop", color = Color.White, fontSize = 40.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 4.sp)
+                Text("Fly", color = AccentGreen, fontSize = 40.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 4.sp)
             }
             Spacer(Modifier.height(16.dp))
             Text(

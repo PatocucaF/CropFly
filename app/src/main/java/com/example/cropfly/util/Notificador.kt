@@ -13,7 +13,7 @@ import com.example.cropfly.R
 
 /** Recurso nativo: notificaciones locales del sistema Android (las que aparecen en la barra superior del teléfono). */
 object Notificador {
-    private const val CANAL_ID = "avisos_agroenlace"
+    private const val CANAL_ID = "avisos_cropfly"
 
     /** Android 13 en adelante exige que el usuario dé permiso; antes de eso no hace falta. */
     fun permisoConcedido(contexto: Context): Boolean =
@@ -37,7 +37,7 @@ object Notificador {
     /** Desde Android 8 toda notificación necesita un "canal" (una categoría que el usuario puede silenciar). */
     private fun crearCanal(contexto: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val canal = NotificationChannel(CANAL_ID, "Avisos de AgroEnlace", NotificationManager.IMPORTANCE_DEFAULT)
+            val canal = NotificationChannel(CANAL_ID, "Avisos de CropFly", NotificationManager.IMPORTANCE_DEFAULT)
             val administrador = contexto.getSystemService(NotificationManager::class.java)
             administrador.createNotificationChannel(canal)
         }

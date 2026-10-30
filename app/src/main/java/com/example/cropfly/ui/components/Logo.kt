@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cropfly.ui.theme.AccentGreen
 
-/** Dibuja el dron del logo (una X con cuatro hélices y un centro verde) usando solo código. */
 @Composable
 fun LogoDron(tamano: Dp, modifier: Modifier = Modifier, colorCuerpo: Color = Color.White) {
     Canvas(modifier = modifier.size(tamano)) {
@@ -37,7 +36,6 @@ fun LogoDron(tamano: Dp, modifier: Modifier = Modifier, colorCuerpo: Color = Col
     }
 }
 
-/** Dron + la palabra AGROENLACE (AGRO en el color indicado y ENLACE en verde limón). */
 @Composable
 fun MarcaAgroEnlace(
     modifier: Modifier = Modifier,
@@ -48,7 +46,7 @@ fun MarcaAgroEnlace(
     Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
         LogoDron(tamano = tamanoLogo, colorCuerpo = colorTexto)
         Spacer(Modifier.width(10.dp))
-        Text("AGRO", color = colorTexto, fontSize = tamanoTexto.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 2.sp)
-        Text("ENLACE", color = AccentGreen, fontSize = tamanoTexto.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 2.sp)
+        Text("Crop", color = colorTexto, fontSize = tamanoTexto.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 2.sp)
+        Text("Fly", color = AccentGreen, fontSize = tamanoTexto.sp, fontWeight = FontWeight.ExtraBold, letterSpacing = 2.sp)
     }
 }
