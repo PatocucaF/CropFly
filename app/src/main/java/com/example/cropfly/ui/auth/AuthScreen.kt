@@ -49,7 +49,7 @@ import com.example.cropfly.ui.components.BotonPrimario
 import com.example.cropfly.ui.components.CampoTexto
 import com.example.cropfly.ui.components.ChipSeleccion
 import com.example.cropfly.ui.components.EtiquetaCampo
-import com.example.cropfly.ui.components.MarcaAgroEnlace
+import com.example.cropfly.ui.components.MarcaCropFly
 import com.example.cropfly.ui.components.SelectorSegmentado
 import com.example.cropfly.ui.components.TextoDeError
 import com.example.cropfly.ui.theme.BackgroundLight
@@ -144,7 +144,7 @@ private fun CabeceraAuth() {
             .statusBarsPadding()
             .padding(start = 24.dp, end = 24.dp, top = 24.dp, bottom = 72.dp)
     ) {
-        MarcaAgroEnlace()
+        MarcaCropFly()
         Spacer(Modifier.height(28.dp))
         Text(
             text = "CONECTA TU CAMPO CON EL PRESTADOR CORRECTO",

@@ -37,7 +37,7 @@ fun LogoDron(tamano: Dp, modifier: Modifier = Modifier, colorCuerpo: Color = Col
 }
 
 @Composable
-fun MarcaAgroEnlace(
+fun MarcaCropFly(
     modifier: Modifier = Modifier,
     tamanoLogo: Dp = 40.dp,
     tamanoTexto: Int = 22,
