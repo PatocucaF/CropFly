@@ -254,7 +254,7 @@ fun NuevaNecesidadScreen(
             }
             Spacer(Modifier.height(16.dp))
             TituloDeModal("¿Permitir ubicación?")
-            TextoDeModal("AgroEnlace usará una ubicación referencial ficticia para sugerir tu zona. No se guarda tu posición real.")
+            TextoDeModal("CropFly usará una ubicación referencial ficticia para sugerir tu zona. No se guarda tu posición real.")
             BotonesDeModal(
                 textoSecundario = "No permitir",
                 alSecundario = { viewModel.responderPermisoUbicacion(false) },
