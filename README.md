@@ -3,7 +3,7 @@
 MVP móvil Android que vincula **productores agrícolas** con **prestadores de servicios** (fumigación y siembra con dron, robots terrestres, monitoreo NDVI).
 Proyecto de la asignatura **DSY1105 – Desarrollo de Aplicaciones Móviles** (Duoc UC), basado en el caso **TECMUNDO**.
 
-> Todo el contenido es **ficticio**: no hay datos personales, productivos ni comerciales reales. La contratación y el pago quedan fuera del alcance del MVP.
+> Todo el contenido es **ficticio**: no hay datos personales, productivos ni comerciales reales.
 
 ## Qué hace la app
 
@@ -78,12 +78,8 @@ Pruebas unitarias (matching y validaciones): `./gradlew test`.
 
 ## Equipo y gestión
 
-- Integrantes: Kta ([@Pancito-sty](https://github.com/Pancito-sty)) y Fernando ([@PatocucaF](https://github.com/PatocucaF)).
+- Integrantes: Catalina Vargas ([@Pancito-sty](https://github.com/Pancito-sty)) y Fernando Valenzuela ([@PatocucaF](https://github.com/PatocucaF)).
 - Ramas: `main` (estable) y una rama de trabajo por integrante, con Pull Request hacia `main`.
-- Tablero Trello: _(agregar enlace)_.
+- Tablero Trello: https://trello.com/invite/b/6ad644d188ff96e79efdbc5d/ATTI76b9a84464c03637fdcd3f229248979e98C52711/cropfly
 - Video de demostración: _(agregar enlace)_.
 
-## Pendientes y mejoras posibles
-
-- Mapa en la sección de ubicación (la llave de la API de mapas no debe subirse al repositorio público).
-- Calificación real de prestadores y fotos de perfil.
