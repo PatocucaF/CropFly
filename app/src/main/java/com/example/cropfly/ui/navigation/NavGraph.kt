@@ -1,18 +1,10 @@
 package com.example.cropfly.ui.navigation
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -21,20 +13,25 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.cropfly.ui.account.CuentaScreen
+import com.example.cropfly.ui.admin.PanelAdminScreen
 import com.example.cropfly.ui.auth.AuthScreen
 import com.example.cropfly.ui.auth.SplashScreen
-import com.example.cropfly.ui.components.BotonSecundario
 import com.example.cropfly.ui.components.rememberFabrica
 import com.example.cropfly.ui.producer.CompararScreen
 import com.example.cropfly.ui.producer.InicioProductorScreen
 import com.example.cropfly.ui.producer.NuevaNecesidadScreen
 import com.example.cropfly.ui.producer.ResultadosScreen
+import com.example.cropfly.ui.provider.PerfilPrestadorScreen
+import com.example.cropfly.ui.provider.SolicitudesScreen
+import com.example.cropfly.viewmodel.AdminViewModel
 import com.example.cropfly.viewmodel.AuthViewModel
 import com.example.cropfly.viewmodel.CuentaViewModel
 import com.example.cropfly.viewmodel.EstadoSesion
 import com.example.cropfly.viewmodel.InicioProductorViewModel
 import com.example.cropfly.viewmodel.NuevaNecesidadViewModel
+import com.example.cropfly.viewmodel.PerfilPrestadorViewModel
 import com.example.cropfly.viewmodel.ResultadosViewModel
+import com.example.cropfly.viewmodel.SolicitudesViewModel
 
 /** Mapa de la app: qué pantalla se muestra en cada ruta y cómo se pasa de una a otra. */
 @Composable
@@ -168,21 +165,35 @@ fun NavGraph(navController: NavHostController = rememberNavController()) {
             )
         }
 
-        // Pantallas que se construyen en el paso 6.
-        composable(Screen.Solicitudes.route) { PantallaTemporal("Solicitudes del prestador", cerrarSesion) }
-        composable(Screen.PanelAdmin.route) { PantallaTemporal("Panel del administrador", cerrarSesion) }
-    }
-}
+        // ---------- Prestador ----------
+        composable(Screen.Solicitudes.route) {
+            val usuario = usuarioActual ?: return@composable
+            val viewModel: SolicitudesViewModel = viewModel(factory = fabrica.solicitudes(usuario.id))
+            SolicitudesScreen(
+                usuarioId = usuario.id,
+                viewModel = viewModel,
+                alElegirPestana = { irAPestana(it, usuario.rol) }
+            )
+        }
+        composable(Screen.MiPerfil.route) {
+            val usuario = usuarioActual ?: return@composable
+            val viewModel: PerfilPrestadorViewModel = viewModel(factory = fabrica.perfilPrestador(usuario.id))
+            PerfilPrestadorScreen(
+                usuarioId = usuario.id,
+                viewModel = viewModel,
+                alElegirPestana = { irAPestana(it, usuario.rol) }
+            )
+        }
 
-/** Pantalla provisoria: deja cerrar sesión para probar. Se reemplaza en el paso 6. */
-@Composable
-private fun PantallaTemporal(titulo: String, alCerrarSesion: () -> Unit) {
-    Column(
-        modifier = Modifier.fillMaxSize().padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(titulo)
-        BotonSecundario("Cerrar sesión", alCerrarSesion)
+        // ---------- Administrador ----------
+        composable(Screen.PanelAdmin.route) {
+            val usuario = usuarioActual ?: return@composable
+            val viewModel: AdminViewModel = viewModel(factory = fabrica.admin())
+            PanelAdminScreen(
+                usuarioId = usuario.id,
+                viewModel = viewModel,
+                alElegirPestana = { irAPestana(it, usuario.rol) }
+            )
+        }
     }
 }
