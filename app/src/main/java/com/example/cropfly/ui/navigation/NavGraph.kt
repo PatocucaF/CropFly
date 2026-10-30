@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -18,16 +20,21 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.cropfly.ui.account.CuentaScreen
 import com.example.cropfly.ui.auth.AuthScreen
 import com.example.cropfly.ui.auth.SplashScreen
 import com.example.cropfly.ui.components.BotonSecundario
 import com.example.cropfly.ui.components.rememberFabrica
+import com.example.cropfly.ui.producer.CompararScreen
 import com.example.cropfly.ui.producer.InicioProductorScreen
 import com.example.cropfly.ui.producer.NuevaNecesidadScreen
+import com.example.cropfly.ui.producer.ResultadosScreen
 import com.example.cropfly.viewmodel.AuthViewModel
+import com.example.cropfly.viewmodel.CuentaViewModel
 import com.example.cropfly.viewmodel.EstadoSesion
 import com.example.cropfly.viewmodel.InicioProductorViewModel
 import com.example.cropfly.viewmodel.NuevaNecesidadViewModel
+import com.example.cropfly.viewmodel.ResultadosViewModel
 
 /** Mapa de la app: qué pantalla se muestra en cada ruta y cómo se pasa de una a otra. */
 @Composable
@@ -104,7 +111,6 @@ fun NavGraph(navController: NavHostController = rememberNavController()) {
             )
         }
 
-        // Pantallas que se construyen en los pasos siguientes (5 y 6).
         composable(
             route = Screen.Resultados.route,
             arguments = listOf(
@@ -113,14 +119,62 @@ fun NavGraph(navController: NavHostController = rememberNavController()) {
                     defaultValue = -1L
                 }
             )
-        ) { PantallaTemporal("Resultados", cerrarSesion) }
-        composable(Screen.Cuenta.route) { PantallaTemporal("Mi cuenta", cerrarSesion) }
+        ) { entrada ->
+            val usuario = usuarioActual ?: return@composable
+            val idRecibido = entrada.arguments?.getLong(Screen.Resultados.ARGUMENTO_ID) ?: -1L
+            val necesidadId = if (idRecibido >= 0L) idRecibido else null
+            val viewModel: ResultadosViewModel = viewModel(factory = fabrica.resultados(usuario.id, necesidadId))
+            ResultadosScreen(
+                usuarioId = usuario.id,
+                viewModel = viewModel,
+                alElegirPestana = { irAPestana(it, usuario.rol) },
+                alVolver = { navController.popBackStack() },
+                alComparar = { navController.navigate(Screen.Comparar.route) },
+                alRegistrarNecesidad = { navController.navigate(Screen.NuevaNecesidad.route) }
+            )
+        }
+        composable(Screen.Comparar.route) { entrada ->
+            val usuario = usuarioActual ?: return@composable
+            // "Comparar" usa el mismo ViewModel que "Resultados" (así recuerda lo que se seleccionó).
+            val entradaResultados = remember(entrada) {
+                runCatching { navController.getBackStackEntry(Screen.Resultados.route) }.getOrNull()
+            }
+            if (entradaResultados == null) {
+                LaunchedEffect(Unit) { navController.popBackStack() }
+                return@composable
+            }
+            val viewModel: ResultadosViewModel = viewModel(
+                viewModelStoreOwner = entradaResultados,
+                factory = fabrica.resultados(usuario.id, null)
+            )
+            CompararScreen(
+                usuarioId = usuario.id,
+                viewModel = viewModel,
+                alElegirPestana = { irAPestana(it, usuario.rol) },
+                alVolver = { navController.popBackStack() }
+            )
+        }
+
+        // ---------- Cuenta (los tres perfiles) ----------
+        composable(Screen.Cuenta.route) {
+            val usuario = usuarioActual ?: return@composable
+            val viewModel: CuentaViewModel = viewModel(factory = fabrica.cuenta(usuario.id))
+            CuentaScreen(
+                usuarioId = usuario.id,
+                rol = usuario.rol,
+                viewModel = viewModel,
+                alElegirPestana = { irAPestana(it, usuario.rol) },
+                alCerrarSesion = cerrarSesion
+            )
+        }
+
+        // Pantallas que se construyen en el paso 6.
         composable(Screen.Solicitudes.route) { PantallaTemporal("Solicitudes del prestador", cerrarSesion) }
         composable(Screen.PanelAdmin.route) { PantallaTemporal("Panel del administrador", cerrarSesion) }
     }
 }
 
-/** Pantalla provisoria: deja cerrar sesión para probar. Se reemplaza en los pasos 5 y 6. */
+/** Pantalla provisoria: deja cerrar sesión para probar. Se reemplaza en el paso 6. */
 @Composable
 private fun PantallaTemporal(titulo: String, alCerrarSesion: () -> Unit) {
     Column(
