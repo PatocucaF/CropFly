@@ -45,6 +45,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.6")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
     implementation("androidx.activity:activity-compose:1.9.3")
+    implementation("org.osmdroid:osmdroid-android:6.1.20")
 
     // Compose y Material 3
     implementation(platform("androidx.compose:compose-bom:2024.10.00"))
