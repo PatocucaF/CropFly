@@ -56,7 +56,18 @@ Las pantallas (`ui`) solo muestran el estado que entrega el ViewModel y le avisa
 - **Animaciones:** pantalla de bienvenida, transición entre ingreso y registro, barra de afinidad, mensajes de error y estado de "buscando".
 - **Modales:** permiso de ubicación, detalle de prestador, confirmación de interés, notificaciones y confirmaciones de borrado.
 - **Recursos nativos:** cámara (foto del predio), notificaciones locales (Android 13+ pide permiso) y ubicación simulada.
+- **Mapa:** al elegir la zona se muestra un mapa de OpenStreetMap con un marcador (necesita internet para cargar el mapa).
 - **Imagen:** foto del predio, reducida y guardada solo en el teléfono.
+
+## Cómo iniciar sesión
+
+La forma más rápida es usar los botones de la pantalla de ingreso:
+1. Baja hasta **CUENTAS DEMO**.
+2. Toca el perfil que quieras probar: **Productor**, **Prestador** o **Admin**.
+3. El correo y la contraseña se rellenan solos.
+4. Toca **Ingresar**.
+
+Al entrar, la sesión queda guardada. Si cierras la app y la abres de nuevo, sigues dentro. Para cambiar de perfil usa **Cerrar sesión** en la pestaña **Cuenta**.
 
 ## Cuentas de prueba
 
@@ -81,5 +92,4 @@ Pruebas unitarias (matching y validaciones): `./gradlew test`.
 - Integrantes: Catalina Vargas ([@Pancito-sty](https://github.com/Pancito-sty)) y Fernando Valenzuela ([@PatocucaF](https://github.com/PatocucaF)).
 - Ramas: `main` (estable) y una rama de trabajo por integrante, con Pull Request hacia `main`.
 - Tablero Trello: https://trello.com/invite/b/6ad644d188ff96e79efdbc5d/ATTI76b9a84464c03637fdcd3f229248979e98C52711/cropfly
-- Video de demostración: _(agregar enlace)_.
 
