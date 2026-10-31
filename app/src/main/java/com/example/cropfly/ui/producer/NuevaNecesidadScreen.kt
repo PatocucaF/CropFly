@@ -76,6 +76,7 @@ import java.util.Locale
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.example.cropfly.ui.components.MapaDeZona
 
 /**
  * Formulario para registrar una necesidad de servicio.
@@ -175,6 +176,19 @@ fun NuevaNecesidadScreen(
                 alto = 46
             )
             AvisoDeUbicacion(estado.usaGps, estado.zona, estado.avisoUbicacion)
+            AnimatedVisibility(visible = Catalogo.zonaPorNombre(estado.zona) != null) {
+                Column {
+                    Spacer(Modifier.height(12.dp))
+                    MapaDeZona(
+                        zona = Catalogo.zonaPorNombre(estado.zona),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(180.dp)
+                            .clip(RoundedCornerShape(16.dp))
+                    )
+                }
+            }
+
             Spacer(Modifier.height(14.dp))
 
             Row {
