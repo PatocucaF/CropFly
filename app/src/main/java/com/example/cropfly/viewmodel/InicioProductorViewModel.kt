@@ -7,10 +7,14 @@ import com.example.cropfly.model.Necesidad
 import com.example.cropfly.repository.InteresRepository
 import com.example.cropfly.repository.NecesidadRepository
 import com.example.cropfly.repository.PrestadorRepository
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -24,6 +28,7 @@ data class InicioProductorUiState(
 )
 
 /** Pantalla "Inicio" del productor: resumen, lista de necesidades y borrado con confirmación. */
+@OptIn(FlowPreview::class)
 class InicioProductorViewModel(
     private val productorId: Long,
     private val necesidadRepository: NecesidadRepository,
@@ -39,7 +44,15 @@ class InicioProductorViewModel(
     val mensajeNube: StateFlow<String> = _mensajeNube
 
     init {
-        viewModelScope.launch { consultarNube() }
+        // Cada vez que cambia la cantidad de necesidades locales (se crea o se borra una), se vuelve a preguntar
+        // a la API. El debounce espera 1,5 s para darle tiempo a la subida antes de contar.
+        viewModelScope.launch {
+            necesidadRepository.observarPorProductor(productorId)
+                .map { necesidades -> necesidades.size }
+                .distinctUntilChanged()
+                .debounce(1_500)
+                .collect { consultarNube() }
+        }
     }
 
     /** Si no es null, la pantalla muestra el diálogo "¿Eliminar necesidad?". */
@@ -73,7 +86,6 @@ class InicioProductorViewModel(
         _necesidadPorEliminar.value = null
         viewModelScope.launch {
             necesidadRepository.eliminar(necesidad.id)
-            consultarNube()
         }
     }
 
