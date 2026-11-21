@@ -14,3 +14,7 @@
 .cxx
 local.properties
 .kotlin/
+
+# Llaves de firma del APK (nunca subir al repositorio)
+*.jks
+*.keystore
