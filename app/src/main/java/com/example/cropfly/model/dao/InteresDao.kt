@@ -24,9 +24,6 @@ interface InteresDao {
     @Query("SELECT * FROM intereses WHERE productorId = :productorId")
     fun observarPorProductor(productorId: Long): Flow<List<Interes>>
 
-    @Query("SELECT * FROM intereses WHERE necesidadId = :necesidadId")
-    fun observarPorNecesidad(necesidadId: Long): Flow<List<Interes>>
-
     @Transaction
     @Query("SELECT * FROM intereses WHERE prestadorId = :prestadorId ORDER BY enviadoEn DESC, id DESC")
     fun observarRecibidos(prestadorId: Long): Flow<List<SolicitudRecibida>>

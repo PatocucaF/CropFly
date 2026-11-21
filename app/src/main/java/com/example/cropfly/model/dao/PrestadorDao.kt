@@ -24,6 +24,19 @@ interface PrestadorDao {
     @Query("UPDATE prestadores SET activo = :activo WHERE id = :id")
     suspend fun cambiarActivo(id: Long, activo: Boolean)
 
+    @Query("UPDATE prestadores SET remoteId = :remoteId WHERE id = :id")
+    suspend fun asignarRemoteId(id: Long, remoteId: String)
+
+    @Query("SELECT * FROM prestadores WHERE remoteId = :remoteId LIMIT 1")
+    suspend fun buscarPorRemoteId(remoteId: String): Prestador?
+
+    /** Sirve para reconocer un prestador de prueba que ya existe en la nube pero aún no tiene remoteId aquí. */
+    @Query("SELECT * FROM prestadores WHERE remoteId IS NULL AND nombre = :nombre LIMIT 1")
+    suspend fun buscarSinRemoteIdPorNombre(nombre: String): Prestador?
+
+    @Query("SELECT * FROM prestadores WHERE remoteId IS NULL")
+    suspend fun listarSinRemoteId(): List<Prestador>
+
     @Query("SELECT * FROM prestadores WHERE id = :id")
     suspend fun buscarPorId(id: Long): Prestador?
 

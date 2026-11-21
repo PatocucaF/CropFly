@@ -33,6 +33,15 @@ class InicioProductorViewModel(
 
     private val _necesidadPorEliminar = MutableStateFlow<Necesidad?>(null)
 
+    private val _mensajeNube = MutableStateFlow("Conectando con la nube…")
+
+    /** Cuántas necesidades de este productor hay publicadas en la API (o aviso de que no hay conexión). */
+    val mensajeNube: StateFlow<String> = _mensajeNube
+
+    init {
+        viewModelScope.launch { consultarNube() }
+    }
+
     /** Si no es null, la pantalla muestra el diálogo "¿Eliminar necesidad?". */
     val necesidadPorEliminar: StateFlow<Necesidad?> = _necesidadPorEliminar
 
@@ -62,6 +71,18 @@ class InicioProductorViewModel(
     fun confirmarEliminar() {
         val necesidad = _necesidadPorEliminar.value ?: return
         _necesidadPorEliminar.value = null
-        viewModelScope.launch { necesidadRepository.eliminar(necesidad.id) }
+        viewModelScope.launch {
+            necesidadRepository.eliminar(necesidad.id)
+            consultarNube()
+        }
+    }
+
+    private suspend fun consultarNube() {
+        val publicadas = necesidadRepository.contarPublicadas(productorId)
+        _mensajeNube.value = if (publicadas == null) {
+            "Sin conexión: se usan los datos del teléfono"
+        } else {
+            "Necesidades publicadas en la nube: $publicadas"
+        }
     }
 }

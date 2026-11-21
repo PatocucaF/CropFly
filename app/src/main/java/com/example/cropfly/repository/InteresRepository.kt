@@ -19,9 +19,8 @@ class InteresRepository(
      * Devuelve false si ya se había enviado antes a ese prestador.
      */
     suspend fun enviar(necesidad: Necesidad, prestador: Prestador, productorId: Long): Boolean {
-        val id = interesDao.insertar(
-            Interes(necesidadId = necesidad.id, prestadorId = prestador.id, productorId = productorId)
-        )
+        val interes = Interes(necesidadId = necesidad.id, prestadorId = prestador.id, productorId = productorId)
+        val id = interesDao.insertar(interes)
         if (id == -1L) return false
 
         notificacionDao.insertar(
@@ -39,13 +38,11 @@ class InteresRepository(
         return true
     }
 
+    /** Marca el interés como visto (el prestador ya abrió la solicitud). */
     suspend fun marcarVista(interesId: Long) = interesDao.marcarVista(interesId)
 
     fun observarPorProductor(productorId: Long): Flow<List<Interes>> =
         interesDao.observarPorProductor(productorId)
-
-    fun observarPorNecesidad(necesidadId: Long): Flow<List<Interes>> =
-        interesDao.observarPorNecesidad(necesidadId)
 
     fun observarRecibidos(prestadorId: Long): Flow<List<SolicitudRecibida>> =
         interesDao.observarRecibidos(prestadorId)

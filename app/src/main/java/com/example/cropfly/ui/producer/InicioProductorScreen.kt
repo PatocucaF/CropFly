@@ -78,6 +78,7 @@ fun InicioProductorScreen(
 ) {
     val estado by viewModel.estado.collectAsState()
     val necesidadPorEliminar by viewModel.necesidadPorEliminar.collectAsState()
+    val mensajeNube by viewModel.mensajeNube.collectAsState()
 
     Estructura(
         titulo = "Inicio",
@@ -100,6 +101,9 @@ fun InicioProductorScreen(
                     TarjetaDeCifra(estado.conResultados, "Con resultados", Modifier.weight(1f))
                     TarjetaDeCifra(estado.intereses, "Intereses", Modifier.weight(1f))
                 }
+            }
+            item {
+                Text(text = mensajeNube, style = MaterialTheme.typography.bodyMedium, color = TextMuted)
             }
             item {
                 Text(

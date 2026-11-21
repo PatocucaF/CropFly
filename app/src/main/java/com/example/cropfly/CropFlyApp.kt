@@ -16,7 +16,11 @@ class CropFlyApp : Application() {
     override fun onCreate() {
         super.onCreate()
         contenedor = ContenedorDeDependencias(this)
-        // Primera vez que se instala: carga las cuentas demo y el catálogo de prestadores.
-        alcanceDeLaApp.launch { contenedor.datosDePruebaRepository.sembrarSiVacio() }
+        alcanceDeLaApp.launch {
+            // Primera vez que se instala: carga las cuentas demo y el catálogo de prestadores.
+            contenedor.datosDePruebaRepository.sembrarSiVacio()
+            // Con internet: baja el catálogo de la API y sube los prestadores que falten.
+            contenedor.prestadorRepository.sincronizarCatalogo()
+        }
     }
 }

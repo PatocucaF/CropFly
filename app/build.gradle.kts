@@ -56,6 +56,10 @@ dependencies {
     // Íconos extra (ojo de contraseña, hoja, capas, escudo, etc.)
     implementation("androidx.compose.material:material-icons-extended")
 
+    // Red: Retrofit consume la API REST (MockAPI) y Gson convierte el JSON a clases de Kotlin
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+
     // Navegación
     implementation("androidx.navigation:navigation-compose:2.8.3")
 

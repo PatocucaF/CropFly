@@ -77,7 +77,7 @@ class ResultadosViewModel(
     private val productorId: Long,
     necesidadId: Long?,
     necesidadRepository: NecesidadRepository,
-    prestadorRepository: PrestadorRepository,
+    private val prestadorRepository: PrestadorRepository,
     private val interesRepository: InteresRepository
 ) : ViewModel() {
 
@@ -126,7 +126,11 @@ class ResultadosViewModel(
         actual.copy(seleccionados = nuevos)
     }
 
-    fun abrirDetalle(prestadorId: Long) = interaccion.update { it.copy(detalleId = prestadorId) }
+    /** Abre el detalle y, en paralelo, pide a la API los datos más recientes de ese prestador. */
+    fun abrirDetalle(prestadorId: Long) {
+        interaccion.update { it.copy(detalleId = prestadorId) }
+        viewModelScope.launch { prestadorRepository.refrescar(prestadorId) }
+    }
     fun cerrarDetalle() = interaccion.update { it.copy(detalleId = null) }
 
     /** "Me interesa" abre el modal de confirmación. */

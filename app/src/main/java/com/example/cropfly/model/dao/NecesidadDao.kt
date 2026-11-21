@@ -11,6 +11,9 @@ interface NecesidadDao {
     @Insert
     suspend fun insertar(necesidad: Necesidad): Long
 
+    @Query("UPDATE necesidades SET remoteId = :remoteId WHERE id = :id")
+    suspend fun asignarRemoteId(id: Long, remoteId: String)
+
     @Query("DELETE FROM necesidades WHERE id = :id")
     suspend fun eliminar(id: Long)
 

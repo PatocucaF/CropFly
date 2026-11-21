@@ -14,7 +14,7 @@ import com.example.cropfly.model.dao.UsuarioDao
 /** Base de datos local (Room). Todo lo de la app vive aquí, en el teléfono. */
 @Database(
     entities = [Usuario::class, Prestador::class, Necesidad::class, Interes::class, Notificacion::class],
-    version = 1,
+    version = 3,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

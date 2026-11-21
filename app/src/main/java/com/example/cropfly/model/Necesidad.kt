@@ -23,5 +23,7 @@ data class Necesidad(
     val notas: String = "",
     val fotoPath: String? = null,
     val esEjemplo: Boolean = false,
-    val creadaEn: Long = System.currentTimeMillis()
+    val creadaEn: Long = System.currentTimeMillis(),
+    /** Id de la necesidad en la API (MockAPI). Es null mientras no se haya subido a la nube. */
+    val remoteId: String? = null
 )

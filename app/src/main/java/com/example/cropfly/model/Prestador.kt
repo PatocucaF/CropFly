@@ -21,7 +21,9 @@ data class Prestador(
     val calificacion: Double = 0.0,
     val disponibleDesde: Long = 0L,
     val disponibleHasta: Long = 0L,
-    val activo: Boolean = true
+    val activo: Boolean = true,
+    /** Id del prestador en la API (MockAPI). Es null mientras no se haya subido a la nube. */
+    val remoteId: String? = null
 ) {
     /** Un perfil se ve en el matching solo si ya ofrece al menos un servicio. */
     val perfilCompleto: Boolean

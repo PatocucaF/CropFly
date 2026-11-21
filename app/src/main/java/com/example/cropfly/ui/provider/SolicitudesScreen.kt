@@ -42,7 +42,6 @@ import com.example.cropfly.ui.components.InfoConIcono
 import com.example.cropfly.ui.components.Pildora
 import com.example.cropfly.ui.components.TarjetaBlanca
 import com.example.cropfly.ui.navigation.PestanaInferior
-import com.example.cropfly.ui.theme.AccentGreen
 import com.example.cropfly.ui.theme.ChipBackground
 import com.example.cropfly.ui.theme.DarkGreen
 import com.example.cropfly.ui.theme.LightGreenContainer
